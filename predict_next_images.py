@@ -1,6 +1,5 @@
 ### Predicts the next image in a sequence using a convolutional LSTM network
 ### Basic example using moving squares
-### use k-mean algorithm to simplify images of clouds, then use as input to this model
 
 from keras.models import Sequential
 from keras.layers.convolutional import Conv3D
@@ -82,9 +81,9 @@ if __name__ == '__main__':
     ### first layer has input shape of (nmovies, width, height, channels)
     ### returns identical shape
     model = Sequential()
-    model.add(ConvLSTM2D(filters=64, kernel_size=(3, 3),input_shape=(None, n, n, 1), padding='same', return_sequences=True))
+    model.add(ConvLSTM2D(filters=32, kernel_size=(3, 3),input_shape=(None, n, n, 1), padding='same', return_sequences=True))
     model.add(BatchNormalization())
-    model.add(ConvLSTM2D(filters=64, kernel_size=(3, 3),input_shape=(None, n, n, 1), padding='same', return_sequences=True))
+    model.add(ConvLSTM2D(filters=32, kernel_size=(3, 3),input_shape=(None, n, n, 1), padding='same', return_sequences=True))
     model.add(BatchNormalization())
     model.add(ConvLSTM2D(filters=32, kernel_size=(3, 3),input_shape=(None, n, n, 1), padding='same', return_sequences=True))
     model.add(BatchNormalization())
@@ -105,7 +104,7 @@ if __name__ == '__main__':
 
 
     ### Take an example from the test set and predict the next steps
-    index = train_size+10
+    index = train_size+1
 
     num_test_frames = 7 ### Number of frames to predict
 

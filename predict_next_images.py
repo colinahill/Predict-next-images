@@ -5,6 +5,7 @@ from keras.models import Sequential
 from keras.layers.convolutional import Conv3D
 from keras.layers.convolutional_recurrent import ConvLSTM2D
 from keras.layers.normalization import BatchNormalization
+from keras.callbacks import EarlyStopping
 import numpy as np
 import pylab as pl
 import os
@@ -12,7 +13,7 @@ os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 def generate_data(nmovies, nframes, n):
 ### Function to generate multiple movies with moving squares in the frames
-### frames are nxn pixels in size, and moving squares are randomly sized between 2-6 pixels across
+### frames are nxn pixels in size, and moving squares are randomly sized between 3-6 pixels across
 ### Squares move linearly over time
 ### INPUT : nmovies = number of movies to generate
 ###         nframes = number of frames to generate
@@ -35,7 +36,7 @@ def generate_data(nmovies, nframes, n):
             y_direction = np.random.randint(0,3) - 1 ### move left, don't move, or move right
 
             ### size of square
-            m = np.random.randint(2,7)
+            m = np.random.randint(3,7)
 
             ### Move square across image
             for k in range(nframes):
@@ -70,12 +71,12 @@ if __name__ == '__main__':
     movies, movies_shifted = generate_data(nmovies, nframes, n)
 
 ### Plot examples from test data
-    # fig, ax = pl.subplots(1,2)
-    # for i in range(3):
-    #     for j in range(nframes):
-    #         ax[0].imshow(movies[i, j, :, :, 0])
-    #         ax[1].imshow(movies_shifted[i, j, :, :, 0])
-    #         pl.savefig("im_{:03d}_{:03d}".format(i,j),vmin=-0.1,vmax=1.1)
+    fig, ax = pl.subplots(1,2)
+    for i in range(3):
+        for j in range(nframes):
+            ax[0].imshow(movies[i, j, :, :, 0])
+            ax[1].imshow(movies_shifted[i, j, :, :, 0])
+            pl.savefig("im_{:03d}_{:03d}".format(i,j),vmin=-0.1,vmax=1.1)
 
     ### Create model:
     ### first layer has input shape of (nmovies, width, height, channels)

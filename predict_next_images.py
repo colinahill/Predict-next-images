@@ -105,7 +105,7 @@ if __name__ == '__main__':
 
 
     ### Take an example from the test set and predict the next steps
-    index = train_size+28
+    index = train_size+33
 
     num_test_frames = 7 ### Number of frames to predict
 

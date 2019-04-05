@@ -105,7 +105,7 @@ if __name__ == '__main__':
 
 
     ### Take an example from the test set and predict the next steps
-    index = train_size+1
+    index = train_size+28
 
     num_test_frames = 7 ### Number of frames to predict
 
@@ -124,13 +124,13 @@ if __name__ == '__main__':
         fig, ax = pl.subplots(1,2)
         ### In left panel show original then predicted frames
         if i >= (nframes-num_test_frames):
-            ax[0].set_title('Prediction')
+            ax[0].set_title("Prediction {:d}/{:d}".format(i-num_test_frames,nframes-num_test_frames-1))
         else:
-            ax[0].set_title('Original')
+            ax[0].set_title("Original")
         ax[0].imshow(train_pred[i, :, :, 0],vmin=vmin,vmax=vmax)
 
         ### In right panel show only truth 
-        ax[1].set_title('truth')
+        ax[1].set_title("Truth - frame {:d}/{:d}".format(i+1,nframes))
         if i >= 2:
             ax[1].imshow(movies_shifted[index][i - 1, :, :, 0],vmin=vmin,vmax=vmax)
         else:
